@@ -33,20 +33,30 @@ class NavGraphLintIntention(private val content: String) : IntentionAction {
         val navigator = File("${project.basePath}/navigation", "NavigatorDirection.kt")
         navigator.parentFile.mkdir()
         navigator.writer().use {
+            it.write("import androidx.navigation.NavController")
             actions.forEach { action ->
                 val direction = directions.find { it.id.split("/").last() == action.destination.split("/").last() }
                 val argument = direction?.name + "Args"
-                it.write(
-                    """
-                    fun androidx.navigation.NavController.navigate(arg: ${argument}){
+                val isThereArg = direction?.arguments.isNullOrEmpty().not()
+                if (isThereArg)
+                    it.write(
+                        """
+                    fun NavController.navigate(arg: ${argument}){
                         navigate(R.id.${direction?.id?.split("/")?.last()},arg.toBundle())
                     }
-                """.trimIndent()
-                )
+                        """.trimIndent()
+                    ) else {
+                    it.write(
+                        """
+                    fun NavController.navigateTo${direction?.name}(){
+                        navigate(R.id.${direction?.id?.split("/")?.last()})
+                    }
+                        """.trimIndent()
+                    )
+                }
                 it.write("\n")
             }
         }
-
     }
 
 
