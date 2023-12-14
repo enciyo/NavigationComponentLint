@@ -3,7 +3,7 @@
     <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
     <id>com.enciyo.NavigationComponentLint</id>
     <vendor>Enciyo</vendor>
-    <description><![CDATA[Lint for Navigation Component]]></description>
+    <description><![CDATA[Lint for Navigation Component. Reduce excess generation from actions ]]></description>
     <name>NavigationComponentLint</name>
     <depends>com.intellij.modules.platform</depends>
     <extensions defaultExtensionNs="com.intellij">
