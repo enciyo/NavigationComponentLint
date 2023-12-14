@@ -35,7 +35,7 @@ class NavGraphLintIntention(private val content: String) : IntentionAction {
         navigator.writer().use {
             actions.forEach { action ->
                 val direction = directions.find { it.id.split("/").last() == action.destination.split("/").last() }
-                val argument = direction?.name + "Arg"
+                val argument = direction?.name + "Args"
                 it.write(
                     """
                     fun androidx.navigation.NavController.navigate(arg: ${argument}){
